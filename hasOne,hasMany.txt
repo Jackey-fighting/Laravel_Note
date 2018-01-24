@@ -1,0 +1,33 @@
+1.hasOne(Model, foreign_key, local_key)
+for instance:
+   比如 Users 用户表拥有 Phones 表，可以在User模型下写：
+	$this->hasOne('App\Phone', 'user_id', 'id');
+hasOne() 会根据外键phones 表的user_id外键进行跟User的id，进行匹配，并返回跟当前User实例有关的phone实例。
+
+   比如 找出 Phones 手机表的用户，可以在phone 模型下写：
+	$this->belongsTo('App\User', 'user_id', 'id');
+belongsTo()也是根据 'user_id' 外键来找，不过是在phone模型的外键，跟User的 id来进行匹配，并返回用户的实例；
+
+区别：
+1.都是使用外键来进行跟id进行匹配出值；
+2.hasOne()是使用关联模型的外键来进行跟当前的模型匹配；
+3.belongsTo()是使用当前模型的外键来进行跟关联模型的id进行匹配；
+
+可以设置默认模型，来免除一些额外的条件判断，比如：
+$this->hasOne(Model, foreign_key, local_key)->withDefault();
+若没找到值，则返回的是null；
+
+
+
+hasMany(Model, froeign_key, local_key)的使用跟hasOne()类似，
+Eloquent 默认是在当前模型下小写加 _id 就是外键，比如：
+在Blog 模型下写个: 获取博客的所有评论
+public function comment(){
+	$this->hasMany('App\Comment', 'blog_id', 'id');
+}
+也是用Comment的外键跟 Blog 的 id 进行匹配出值。
+
+
+hasMany(Model, foreign_key, local_key) ,hasOne(Model, foreign_key, local_key),这两个foreign_key ，都是 Model 关联模型的外键 ，因为都是用当前的 实例 的 local_key（一般是id），来进行跟 foreign_key（一般是跟 实例 相关的外键id）。
+
+belongsTo(Model, foreign_key, local_key);意思是 当前模型的实例 是属于Model里的谁的，这里的foreign_key 是当前模型内的字段， 来 Model 跟local_key 的字段来比较，匹配到则返回值。
