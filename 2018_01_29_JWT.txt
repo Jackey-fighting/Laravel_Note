@@ -1,3 +1,7 @@
 JWT 的介绍：
 JWT是用来传输可靠的数据的，不过payload载荷也会被人家破解，所以才需要靠sign签名来做秘钥，所以一般来传输 下单 等操作，不能传输敏感数据，比如密码，银行卡信息等。具体如下：
+个人博客介绍：
 http://blog.leapoahead.com/2015/09/06/understanding-jwt/
+
+官方介绍：
+https://jwt.io/introduction/
