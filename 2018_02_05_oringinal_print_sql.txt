@@ -1,0 +1,14 @@
+打印原生 sql:
+DB::connection()->enableQueryLog(); //禁用的话使用disableQueryLog();在多插入的时候，可禁用
+
+DB::table('users')->where(['key'=>'value'])->orderBy('id', 'asc')->get();
+
+$log = DB::getQueryLog();
+
+Log::info($log);
+
+
+#这个是获取所有数据，并存到users.all缓存10分钟，跟上面的无关
+#获取所有的model数据，并存到缓存10分钟：
+
+User::remember(10, 'users.all')->get();
