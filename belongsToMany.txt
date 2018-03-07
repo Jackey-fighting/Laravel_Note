@@ -1,0 +1,16 @@
+多对多： belongsToMany(1,2,3,4)
+1：关联的模型；
+2：生成的第三个表，一定要先设置好表；
+3：是当前模型的主键ID；（因为默认3,4都是模型小写_id 来作为外键名的，而且下面例子中是Role来找出对应的User，所以Role表中要有user_id外键，而User表则可以不用role_id外键）
+4：关联模型的主键ID；
+
+比如：
+class Role extends Model{
+  public function user2(){
+    return $this->belongsToMany('App\User', 'role_users', 'role_id', 'user_id')->withTimestamps();
+  }
+}
+
+然后直接使用Role的实例来获取User的实例
+Role::first()->user2() 可以获取到Role第一个实例的所有相关的User实例。
+Role::first()->user2->first()->pivot 这样可以获取到User的第一结果集实例，并返回pivot的值，也就是相关联的值
